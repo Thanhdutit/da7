@@ -26,6 +26,18 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 
+            <!-- TextView tên bệnh -->
+            <TextView
+                android:id="@+id/tvTenBenh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên Bệnh"
+                android:textColor="#FFC107"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:paddingBottom="16dp"
+                android:gravity="center"/>
+
             <!-- TextView tiêu đề triệu chứng -->
             <TextView
                 android:id="@+id/tvTitleTrieuChung"
@@ -51,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
+                    android:background="@color/white"
                     android:text="Đây là gợi ý cách chữa trị cho loại bệnh này"
                     android:textColor="#2A98EF"
                     android:textSize="20sp" />
@@ -80,10 +93,12 @@
                     android:id="@+id/tvdieutri"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/white"
                     android:padding="15dp"
                     android:text="Thông tin chi tiết về cách điều trị sẽ được hiển thị ở đây."
                     android:textColor="#AE891A"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:visibility="visible" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
@@ -92,10 +107,15 @@
     <!-- Button để trở lại -->
     <Button
         android:id="@+id/btnback"
-        android:layout_width="138dp"
-        android:layout_height="51dp"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/customer_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:padding="12dp"
         android:text="Trở lại"
         android:textColor="#FFFFFF"

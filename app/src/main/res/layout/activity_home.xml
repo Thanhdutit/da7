@@ -11,27 +11,34 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="390dp"
-        android:layout_height="188dp"
+        android:layout_width="348dp"
+        android:layout_height="90dp"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="Chẩn đoán bệnh trên cây trồng"
         android:textColor="#15AFF4"
-        android:textSize="34sp"
+        android:textSize="32sp"
         android:textStyle="bold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029" />
+        app:layout_constraintVertical_bias="0.085" />
 
     <Button
-        android:id="@+id/btn_home"
-        android:layout_width="219dp"
-        android:layout_height="58dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/btnHome"
+        android:layout_width="381dp"
+        android:layout_height="52dp"
         android:background="@drawable/customer_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Trang chủ"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +46,14 @@
         app:layout_constraintVertical_bias="0.936" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="57dp"
-        android:layout_height="43dp"
+        android:id="@+id/ibIntroduce"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
+        android:contentDescription="introduce"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.008"
-        app:srcCompat="@drawable/faq" />
+        app:srcCompat="@drawable/ask" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

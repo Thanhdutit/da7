@@ -14,29 +14,33 @@ import android.widget.TextView;
 
 public class Suggestion extends AppCompatActivity {
 
-    Button btnback;
-    TextView tvTrieuChung, tvDieuTri;
+    Button btnBack;
+    TextView tvTrieuChung, tvDieuTri, tvTenBenh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
 
-        btnback = (Button) findViewById(R.id.btnback);
+        btnBack = (Button) findViewById(R.id.btnback);
         tvTrieuChung = findViewById(R.id.tvtrieuchung);
         tvDieuTri = findViewById(R.id.tvdieutri);
+        tvTenBenh = findViewById(R.id.tvTenBenh);
 
 
-        Intent myintent = getIntent();
-        Bundle mybundel = myintent.getBundleExtra("mypackage");
-        String a = mybundel.getString("trieuchung");
-        String b = mybundel.getString("dieutri");
+        Intent myIntent = getIntent();
+        Bundle myBundel = myIntent.getBundleExtra("mypackage");
+        String a = myBundel.getString("trieuchung");
+        String b = myBundel.getString("dieutri");
+        String c = myBundel.getString("tenbenh");
 
         tvTrieuChung.setText(formatTextWithNewline(a));
         tvDieuTri.setText(formatTextWithNewline(b));
+        tvTenBenh.setText((c));
 
 
-        btnback.setOnClickListener(new View.OnClickListener() {
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -54,8 +58,8 @@ public class Suggestion extends AppCompatActivity {
 
         text = text.replace(".", ".\n-");
 
-        if (text.endsWith("-")) {
-            text = text.substring(0, text.length() - 1);
+        if (text.endsWith("\n-")) {
+            text = text.substring(0, text.length() - 2);
         }
 
         return new SpannableString(text);

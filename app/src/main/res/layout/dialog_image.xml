@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@android:color/transparent">
+    android:background="@color/white"
+    android:padding="16dp"
+    >
 
-    <ImageView
-        android:id="@+id/fullscreen_image"
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:src="@drawable/unnamed" />
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="Chọn ảnh từ" />
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Máy ảnh"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thư viện"
+        android:layout_marginTop="8dp" />
 </LinearLayout>
+

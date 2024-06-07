@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="0.8"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#0F815F"
+        android:gravity="center"
+        android:text="Cẩm nang "
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:contentDescription="introduce">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/cachua" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce2"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ngo" />
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce3"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/daunanh" />
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce4"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/dautay" />
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce5"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/dualeo" />
+
+            <ImageButton
+                android:id="@+id/imageButton7"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce6"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/khoaitay" />
+
+            <ImageButton
+                android:id="@+id/imageButton8"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/lua" />
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/nho" />
+
+            <ImageButton
+                android:id="@+id/imageButton9"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/otchuong" />
+
+            <ImageButton
+                android:id="@+id/imageButton10"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/tao" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+</LinearLayout>

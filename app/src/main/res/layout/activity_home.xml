@@ -11,8 +11,8 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="348dp"
-        android:layout_height="90dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="Chẩn đoán bệnh trên cây trồng"
@@ -22,7 +22,7 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.085" />
@@ -31,8 +31,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/btnHome"
-        android:layout_width="381dp"
-        android:layout_height="52dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/customer_button"
         android:clickable="true"
         android:focusable="true"
@@ -43,7 +43,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintVertical_bias="0.936"
+        app:layout_constraintHorizontal_bias="0.5"/>
 
     <ImageButton
         android:id="@+id/ibIntroduce"

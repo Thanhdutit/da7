@@ -36,6 +36,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.doan7.ml.QuantizedModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.image.TensorImage;
@@ -63,9 +65,10 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private String[] diseases = {"benh1", "benh2", "benh3"};
+    private ImageButton imgBtDelete;
     private ImageView imgView, ibBackHome, imgAdd;
     private Button predict, suggestion;
-    private TextView tvBenhChanDoan, tvTiLe, tvAddImg1, tvAddImg2;
+    private TextView tvBenhChanDoan, tvAddImg1, tvAddImg2;
     private Bitmap image;
     private SQLiteDatabase database;
     private String DATABASE_NAME = "goiy.db";
@@ -74,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
     private String data1 = "";
     private String data2 = "";
     int imageSize = 128;
-    private ImageButton imgCam, imgAnh;
-    private ImageView fullscreen_image;
     private ActivityResultLauncher<String> requestCameraPermissionLauncher;
     private ActivityResultLauncher<Intent> cameraActivityResultLauncher;
     private String currentPhotoPath;
@@ -107,39 +108,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        imgCam.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String fileName = "photo";
-//                File storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//                try {
-//                    File imageFile = File.createTempFile(fileName, ".jpg", storageDirectory);
-//                    currentPhotoPath = imageFile.getAbsolutePath();
-//
-//                    Uri imageUri = FileProvider.getUriForFile(MainActivity.this,
-//                            "com.example.doan7.fileprovider",imageFile);
-//
-//
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-//                    startActivityForResult(intent,1);
-//
-//                }
-//                catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+        imgBtDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearPreviousNotPrediction();
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        intent = new Intent(MainActivity.this, Home.class);
+                        break;
+                    case R.id.navigation_chan_doan:
+                        intent = new Intent(MainActivity.this, MainActivity.class);
+                        break;
+//                    case R.id.navigation_cam_nang:
+//                        intent = new Intent(MainActivity.this, CamNangActivity.class);
+//                        break;
+
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+
+        // Load the default fragment or activity
+        if (savedInstanceState == null) {
+            // Here you can either start the default activity or fragment as per your requirement.
+            Intent defaultIntent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(defaultIntent);
+        }
     }
+
 
     private void showImagePickerDialog() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_image, null);
 
+
         Button btnCamera = view.findViewById(R.id.btnCamera);
         Button btnGallery = view.findViewById(R.id.btnGallery);
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
+//        AlertDialog dialog = new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.TransparentDialog)
                 .setView(view)
                 .create();
 
@@ -194,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
+                //xóa dữ liệu trước đó
                     clearPreviousPrediction();
                     Bundle extras = data != null ? data.getExtras() : null;
                     if (extras != null && extras.containsKey("data")) {
@@ -209,22 +230,18 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
                     }
 
-
             } else if (requestCode == REQUEST_GALLERY) {
                 clearPreviousPrediction();
                 Uri selectedImage = data != null ? data.getData() : null;
-
                 // Xử lý ảnh từ thư viện
-
                 try {
-                    clearPreviousPrediction();
                     image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    imgView.setImageBitmap(image);
+                    image = Bitmap.createScaledBitmap(image, imageSize, imageSize, true);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                imgView.setImageBitmap(image);
-                image = Bitmap.createScaledBitmap(image, imageSize, imageSize, true);
             }
         }
     }
@@ -234,18 +251,23 @@ public class MainActivity extends AppCompatActivity {
         tvAddImg1.setVisibility(View.INVISIBLE);
         tvAddImg2.setVisibility(View.INVISIBLE);
         imgAdd.setImageDrawable(null);
+        imgBtDelete.setVisibility(View.VISIBLE);
         // Ẩn nút gợi ý
         suggestion.setVisibility(View.GONE);
-        tvTiLe.setText("Tỉ lệ");
-    }
-    private void clearPreviousNotPrediction() {
+        tvBenhChanDoan.setText("Bệnh Chuẩn đoán");
 
+    }
+
+    private void clearPreviousNotPrediction() {
+        imgBtDelete.setVisibility(View.INVISIBLE);
         imgView.setImageDrawable(null);
         imgView.setImageResource(R.drawable.img3);
         image = null;
         imgAdd.setImageResource(R.drawable.photo);
         tvAddImg1.setVisibility(View.VISIBLE);
         tvAddImg2.setVisibility(View.VISIBLE);
+        suggestion.setVisibility(View.INVISIBLE);
+        tvBenhChanDoan.setText("Bệnh chuẩn đoán");
     }
 
     private void initViews() {
@@ -253,138 +275,18 @@ public class MainActivity extends AppCompatActivity {
         tvBenhChanDoan = findViewById(R.id.tvBenhChanDoan);
         predict = findViewById(R.id.btPredict);
         suggestion = findViewById(R.id.btSuggestion);
-        imgCam = findViewById(R.id.imgCam);
-        imgAnh = findViewById(R.id.imgAnh);
         ibBackHome = findViewById(R.id.ibBackHome);
-        tvTiLe = findViewById(R.id.tvTiLe);
         cardView = findViewById(R.id.cardView);
         tvAddImg1 = findViewById(R.id.tvAddImg1);
         tvAddImg2 = findViewById(R.id.tvAddImag2);
         imgAdd = findViewById(R.id.imgAdd);
+        imgBtDelete = findViewById(R.id.imgBtDelete);
 
     }
 
     private void setupDatabase() {
         processCopy();
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-    }
-
-//    private void setupImageCapture() {
-//        cameraActivityResultLauncher = registerForActivityResult(
-//                new ActivityResultContracts.StartActivityForResult(),
-//                result -> {
-//                    if (result.getResultCode() == Activity.RESULT_OK) {
-//                        File imgFile = new File(currentPhotoPath);
-//                        if (imgFile.exists()) {
-//                            image = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-//                            imgView.setImageBitmap(image);
-//                            image = Bitmap.createScaledBitmap(image, imageSize, imageSize, true);
-//                        } else {
-//                            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }
-//        );
-//
-//        // Đăng ký yêu cầu quyền camera
-//        requestCameraPermissionLauncher = registerForActivityResult(
-//                new ActivityResultContracts.RequestPermission(),
-//                isGranted -> {
-//                    if (isGranted) {
-//                        launchCamera();
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "Camera permission is required to use the camera", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//        );
-//
-//        imgCam.setOnClickListener(v -> {
-//            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
-//            } else {
-//                launchCamera();
-//                clearPreviousPrediction();
-//            }
-//        });
-//    }
-//
-//    private void launchCamera() {
-//        String fileName = "photo";
-//        File storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        try {
-//            File imageFile = File.createTempFile(fileName, ".jpg", storageDirectory);
-//            currentPhotoPath = imageFile.getAbsolutePath();
-//
-//            Uri imageUri = FileProvider.getUriForFile(MainActivity.this,
-//                    "com.example.doan7.fileprovider", imageFile);
-//
-//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//            cameraActivityResultLauncher.launch(intent);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    private void setupImageCapture() {
-        requestCameraPermissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                isGranted -> {
-                    if (isGranted) {
-                        launchCamera();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Camera permission is required to use the camera", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-
-        // Initialize the camera result launcher
-        cameraActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        // Get the captured photo
-                        Bundle extras = result.getData().getExtras();
-                        if (extras != null && extras.containsKey("data")) {
-                            image = (Bitmap) extras.get("data");
-//                            int dimension = Math.min(image.getWidth(), image.getHeight());
-//                            image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
-                            imgView.setImageBitmap(image);
-
-
-                            // Trigger the prediction process with the captured photo
-                            if (image != null) {
-                                image = Bitmap.createScaledBitmap(image, 128, 128, true);
-
-                            } else {
-                                Toast.makeText(this, "Please capture an image first", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else {
-                            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-        );
-
-        imgCam.setOnClickListener(v -> {
-            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
-                clearPreviousPrediction();
-
-            } else {
-                clearPreviousPrediction();
-                launchCamera();
-
-            }
-        });
-    }
-
-    private void launchCamera() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            cameraActivityResultLauncher.launch(cameraIntent);
-        }
     }
 
     private void setupSuggestionButton() {
@@ -397,33 +299,6 @@ public class MainActivity extends AppCompatActivity {
             myIntent.putExtra("mypackage", myBundle);
             startActivity(myIntent);
         });
-    }
-
-    private void makePrediction() {
-        try {
-            QuantizedModel model = QuantizedModel.newInstance(getApplicationContext());
-
-            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 128, 128, 3}, DataType.FLOAT32);
-
-            TensorImage tensorImage = new TensorImage(DataType.FLOAT32);
-
-            tensorImage.load(image);
-            ByteBuffer byteBuffer = tensorImage.getBuffer();
-            inputFeature0.loadBuffer(byteBuffer);
-
-            QuantizedModel.Outputs outputs = model.process(inputFeature0);
-            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
-            model.close();
-
-            float[] outputArray = outputFeature0.getFloatArray();
-            int maxIndex = getMaxIndex(outputArray);
-            float maxPrediction = outputArray[maxIndex];
-            tvTiLe.setText(String.valueOf(maxPrediction));
-            updateUIWithPrediction(maxIndex,maxPrediction);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void makePrediction(Bitmap image) {
@@ -470,7 +345,6 @@ public class MainActivity extends AppCompatActivity {
                 showCustomNotification("Không nhận diện được bệnh, ảnh chụp không đúng hoặc bệnh không có trong dữ liệu, vui lòng chụp lại");
                 clearPreviousNotPrediction();
             } else {
-                tvTiLe.setText(String.valueOf(maxPrediction));
                 updateUIWithPrediction(maxIndex,maxPrediction);
             }
 
@@ -489,36 +363,10 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.setCancelable(true);
 
+
         // Tạo và hiển thị cửa sổ thông báo
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-
-    private void setupImagePicker() {
-        ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Uri dat = result.getData().getData();
-                        //image = null;
-                        try {
-                         image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dat);
-//                            image = getOriginalBitmap(this, dat);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        imgView.setImageBitmap(image);
-                        image = Bitmap.createScaledBitmap(image, imageSize, imageSize, true);
-                    }
-                }
-        );
-
-        imgAnh.setOnClickListener(v -> {
-            clearPreviousPrediction();
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            imagePickerLauncher.launch(intent);
-        });
     }
 
     private void setupPredictButton() {
@@ -526,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
             if (image != null) {
                 makePrediction(image);
        } else {
-                Toast.makeText(this, "Please select an image first", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -546,7 +394,6 @@ public class MainActivity extends AppCompatActivity {
     private void updateUIWithPrediction(int maxIndex,float maxPrediction) {
         String[] selectionArgs = {String.valueOf(maxIndex)};
         Cursor c = database.query("tbgoiy", null, "id=?", selectionArgs, null, null, null);
-    if(maxPrediction>0.8) {
         if (c.moveToFirst()) {
             tvBenhChanDoan.setText(c.getString(1));
             data = c.getString(1);
@@ -556,11 +403,6 @@ public class MainActivity extends AppCompatActivity {
 
         c.close();
         suggestion.setVisibility(View.VISIBLE);
-    }
-    else
-    {
-
-    }
     }
 
     private void processCopy() {

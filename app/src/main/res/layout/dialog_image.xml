@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@drawable/dialog_background"
     android:padding="16dp"
     >
 
@@ -13,21 +13,30 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20dp"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/black"
         android:text="Chọn ảnh từ" />
-
-    <Button
-        android:id="@+id/btnCamera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Máy ảnh"
-        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/btnGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thư viện"
+        android:textColor="#4CAF50"
+        android:textStyle="bold"
+        android:background="@drawable/button_background1"
         android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Máy ảnh"
+        android:background="@drawable/button_background1"
+        android:textColor="#4CAF50"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+
 </LinearLayout>
 

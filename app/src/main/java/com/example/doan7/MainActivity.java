@@ -70,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
     private Button predict, suggestion;
     private TextView tvBenhChanDoan, tvAddImg1, tvAddImg2;
     private Bitmap image;
-    private SQLiteDatabase database;
+    private SQLiteDatabase database,database1;
     private String DATABASE_NAME = "goiy.db";
+    private String DATABASE_NAME1 = "camnang.db";
     private String DB_PATH_SUFFIX = "/databases/";
     private String data = "";
     private String data1 = "";
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setupDatabase1();
         initViews();
         setupDatabase();
         setupPredictButton();
@@ -115,40 +116,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent = null;
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        intent = new Intent(MainActivity.this, Home.class);
-                        break;
-                    case R.id.navigation_chan_doan:
-                        intent = new Intent(MainActivity.this, MainActivity.class);
-                        break;
-//                    case R.id.navigation_cam_nang:
-//                        intent = new Intent(MainActivity.this, CamNangActivity.class);
-//                        break;
 
-                }
-                if (intent != null) {
-                    startActivity(intent);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
 
-        // Load the default fragment or activity
-        if (savedInstanceState == null) {
-            // Here you can either start the default activity or fragment as per your requirement.
-            Intent defaultIntent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(defaultIntent);
-        }
     }
-
 
     private void showImagePickerDialog() {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -285,8 +255,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupDatabase() {
-        processCopy();
+        processCopy(DATABASE_NAME);
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+
+    }
+    private void setupDatabase1() {
+        processCopy(DATABASE_NAME1);
+        database1 = openOrCreateDatabase(DATABASE_NAME1, MODE_PRIVATE, null);
+
     }
 
     private void setupSuggestionButton() {
@@ -345,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
                 showCustomNotification("Không nhận diện được bệnh, ảnh chụp không đúng hoặc bệnh không có trong dữ liệu, vui lòng chụp lại");
                 clearPreviousNotPrediction();
             } else {
-                updateUIWithPrediction(maxIndex,maxPrediction);
+                updateUIWithPrediction(maxIndex);
             }
 
 
@@ -391,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
                 return maxIndex;
             }
 
-    private void updateUIWithPrediction(int maxIndex,float maxPrediction) {
+    private void updateUIWithPrediction(int maxIndex) {
         String[] selectionArgs = {String.valueOf(maxIndex)};
         Cursor c = database.query("tbgoiy", null, "id=?", selectionArgs, null, null, null);
         if (c.moveToFirst()) {
@@ -405,11 +381,11 @@ public class MainActivity extends AppCompatActivity {
         suggestion.setVisibility(View.VISIBLE);
     }
 
-    private void processCopy() {
-        File dbFile = getDatabasePath(DATABASE_NAME);
+    private void processCopy(String databaseName) {
+        File dbFile = new File(getDatabasePath1(databaseName));
         if (!dbFile.exists()) {
             try {
-                copyDatabaseFromAsset();
+                copyDatabaseFromAsset(databaseName);
                 Toast.makeText(this, "Copying success from Assets folder", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
@@ -417,14 +393,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String getDatabasePath() {
-        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
+    private String getDatabasePath1(String databaseName) {
+        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + databaseName;
     }
 
-    private void copyDatabaseFromAsset() {
+    private void copyDatabaseFromAsset(String databaseName) {
             try {
-                InputStream myInput = getAssets().open(DATABASE_NAME);
-                String outFileName = getDatabasePath();
+                InputStream myInput = getAssets().open(databaseName);
+                String outFileName = getDatabasePath1(databaseName);
                 File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
                 if (!f.exists()) {
                     f.mkdir();

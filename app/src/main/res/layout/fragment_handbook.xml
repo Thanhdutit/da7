@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_gravity="center"
+    tools:context=".fragment.HomeFragment">
+
+    <TextView
+        android:id="@+id/tvHandbook"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#0F815F"
+        android:gravity="center"
+        android:text="Cẩm nang chăm sóc cây trồng "
+        android:textColor="@color/white"
+        android:textSize="21dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#A7C8E3"
+        android:layout_below="@id/tvHandbook"
+        android:contentDescription="introduce"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHandbook"
+        app:layout_constraintVertical_bias="0.05">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <ImageButton
+
+                android:id="@+id/imgBtCachua"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce4"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/cachua" />
+
+            <ImageButton
+                android:id="@+id/imgBtNgo"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce2"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ngo" />
+
+            <ImageButton
+                android:id="@+id/imgBtDauNanh"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce3"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/daunanh" />
+
+            <ImageButton
+                android:id="@+id/imgBtDau"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce4"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/dautay" />
+
+            <ImageButton
+                android:id="@+id/imgBtDuaLeo"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce5"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/dualeo" />
+
+            <ImageButton
+                android:id="@+id/imgBtKhoaiTay"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce6"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/khoaitay" />
+
+            <ImageButton
+                android:id="@+id/imgBtLua"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/lua" />
+
+            <ImageButton
+                android:id="@+id/imgBtNho"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/nho" />
+
+            <ImageButton
+                android:id="@+id/imgBtOt"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/otchuong" />
+
+            <ImageButton
+                android:id="@+id/imgBtTao"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce7"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/tao" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <SearchView
+
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontalScrollView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/teal_200"
+        android:iconifiedByDefault="false"
+        android:queryHint="Tìm kiếm cây trồng"
+
+        />
+
+    <TextView
+        android:id="@+id/tvTen"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_below="@+id/searchView"
+        android:text="Cây cà chua"
+        android:textColor="#F86156"
+        android:textSize="20dp" />
+
+
+    <ScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvTen"
+        android:layout_alignParentEnd="true"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="0dp"
+        android:contentDescription="introduce"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHandbook">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- Nhóm 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="43dp"
+                    android:layout_height="39dp"
+                    android:src="@drawable/cachua" />
+
+                <TextView
+                    android:id="@+id/tvYeuCauChamSoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Yêu cầu chăm sóc"
+                    android:textColor="#E65050"
+                    android:textStyle="bold"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+
+            <!-- Nhóm 2 -->
+
+            <!-- Nhóm 3 -->
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/tvYeuCauChamSoc1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10dp"
+                android:text="TextView"
+                android:textSize="18dp"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/cachua" />
+
+                <TextView
+                    android:id="@+id/tvHuongDanTrong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Hướng dẫn trồng"
+                    android:textColor="#E65050"
+                    android:textStyle="bold"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/tvHuongDanTrong1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10dp"
+                android:text="TextView"
+                android:textSize="18dp"
+
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="46dp"
+                    android:layout_height="34dp"
+                    android:src="@drawable/cachua" />
+
+                <TextView
+                    android:id="@+id/tvSauBenhVaDieuTri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Sâu bệnh và điều trị"
+                    android:textColor="#E65050"
+                    android:textStyle="bold"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/tvSauBenhVaDieuTri1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10dp"
+                android:text="TextView"
+                android:textSize="18dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/home"
-        android:title="Home" />
+
     <item
         android:id="@+id/navigation_chan_doan"
         android:icon="@drawable/predict"
-        android:title="Chẩn đoán" />
+        android:title="chuẩn đoán" />
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/handbook"
+        android:title="Cẩm nang" />
+
 
     <item
         android:id="@+id/navigation_cam_nang"
-        android:icon="@drawable/handbook"
-        android:title="Cẩm nang" />
+        android:icon="@drawable/search"
+        android:title="Lịch sử" />
 
 
 </menu>

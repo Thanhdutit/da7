@@ -89,18 +89,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="15dp"
             android:gravity="center"
             android:text="Bệnh chuẩn đoán"
             android:textColor="#FABC03"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btPredict"
-            app:layout_constraintVertical_bias="0.177" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btPredict"
@@ -112,6 +113,7 @@
             android:background="@drawable/customer_button"
             android:clickable="true"
             android:focusable="true"
+            android:textSize="14dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:text="Thực hiện chuẩn đoán"
@@ -130,7 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="25dp"
             android:background="@drawable/customer_button"
@@ -149,7 +151,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvBenhChanDoan"
-            app:layout_constraintVertical_bias="0.12" />
+            app:layout_constraintVertical_bias="0.029" />
 
         <TextView
             android:id="@+id/textView"
@@ -159,7 +161,7 @@
             android:gravity="center"
             android:text="Chẩn đoán"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="21dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cardView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -363,24 +365,24 @@
             app:srcCompat="@drawable/search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="0.15"-->
-<!--        >-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="0.15"-->
+    <!--        >-->
 
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/bottom_navigation1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@color/teal_700"-->
-<!--            app:itemIconTint="@color/custom_bottom_navigation"-->
-<!--            app:itemTextColor="@color/custom_bottom_navigation"-->
-<!--            app:labelVisibilityMode="labeled"-->
+    <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--            android:id="@+id/bottom_navigation1"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@color/teal_700"-->
+    <!--            app:itemIconTint="@color/custom_bottom_navigation"-->
+    <!--            app:itemTextColor="@color/custom_bottom_navigation"-->
+    <!--            app:labelVisibilityMode="labeled"-->
 
 
-<!--            app:menu="@menu/bottom_navigation_menu" />-->
-<!--    </RelativeLayout>-->
+    <!--            app:menu="@menu/bottom_navigation_menu" />-->
+    <!--    </RelativeLayout>-->
 </LinearLayout>
 
 

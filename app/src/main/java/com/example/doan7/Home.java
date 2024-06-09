@@ -17,6 +17,7 @@ public class Home extends AppCompatActivity {
     ImageButton ibIntroduce;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -26,7 +27,7 @@ public class Home extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(Home.this,MainActivity.class);
+                Intent myIntent = new Intent(Home.this,MainActivity2.class);
                 startActivity(myIntent);
             }
         });

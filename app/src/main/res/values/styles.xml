@@ -7,4 +7,8 @@
         <item name="android:windowMinWidthMajor">90%</item> <!-- Chiều rộng tối thiểu -->
         <item name="android:windowMinWidthMinor">90%</item> <!-- Chiều rộng tối thiểu -->
     </style>
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">#B91A1A</item>
+        <!-- Thay thế @android:color/white bằng màu chữ bạn muốn -->
+    </style>
 </resources>

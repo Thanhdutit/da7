@@ -9,21 +9,25 @@
     tools:context=".Suggestion">
 
     <!-- ScrollView để cuộn nội dung -->
+
+    <!-- Button để trở lại -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/btnback"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="16dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="20dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="16dp"
             android:paddingStart="16dp"
+            android:paddingTop="16dp"
             android:paddingEnd="16dp">
 
             <!-- TextView tên bệnh -->
@@ -31,23 +35,23 @@
                 android:id="@+id/tvTenBenh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="16dp"
                 android:text="Tên Bệnh"
                 android:textColor="#FFC107"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                android:paddingBottom="16dp"
-                android:gravity="center"/>
+                android:textStyle="bold" />
 
             <!-- TextView tiêu đề triệu chứng -->
             <TextView
                 android:id="@+id/tvTitleTrieuChung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:text="Triệu chứng"
                 android:textColor="#D14518"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold" />
 
             <!-- CardView chứa TextView triệu chứng -->
             <androidx.cardview.widget.CardView
@@ -62,8 +66,8 @@
                     android:id="@+id/tvtrieuchung"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp"
                     android:background="@color/white"
+                    android:padding="15dp"
                     android:text="Đây là gợi ý cách chữa trị cho loại bệnh này"
                     android:textColor="#2A98EF"
                     android:textSize="20sp" />
@@ -74,12 +78,12 @@
                 android:id="@+id/tvTitleCachChuaTri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
                 android:text="Cách chữa trị"
                 android:textColor="#1893CA"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold" />
 
             <!-- CardView chứa TextView điều trị -->
             <androidx.cardview.widget.CardView
@@ -104,20 +108,19 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Button để trở lại -->
     <Button
         android:id="@+id/btnback"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/customer_button"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:padding="12dp"
         android:text="Trở lại"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

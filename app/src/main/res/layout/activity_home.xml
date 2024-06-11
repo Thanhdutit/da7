@@ -63,4 +63,47 @@
         app:layout_constraintVertical_bias="0.008"
         app:srcCompat="@drawable/ask" />
 
+    <RelativeLayout
+        android:layout_width="46dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageButton
+            android:id="@+id/imgBtSelectLanguage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:contentDescription="multi language"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.341"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.463"
+            app:srcCompat="@drawable/languages" />
+
+        <Spinner
+            android:id="@+id/spinnerLanguages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgBtSelectLanguage"
+            android:layout_marginTop="1dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/imgBtSelectLanguage"
+            app:layout_constraintEnd_toStartOf="@+id/imgBtSelectLanguage"
+            app:layout_constraintTop_toTopOf="@+id/imgBtSelectLanguage" />
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

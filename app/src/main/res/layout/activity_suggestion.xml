@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
-                android:text="Triệu chứng"
+                android:text="@string/suggestion_Symptoms_vn"
                 android:textColor="#D14518"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
                 android:paddingBottom="8dp"
-                android:text="Cách chữa trị"
+                android:text="@string/suggestion_Treatment_vn"
                 android:textColor="#1893CA"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -119,7 +119,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:text="Trở lại"
+        android:text="@string/suggestion_Back_vn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="18sp"

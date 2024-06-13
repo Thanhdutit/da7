@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.doan7.MyApplication;
 import com.example.doan7.R;
 
 import java.io.File;
@@ -33,12 +34,15 @@ import java.util.regex.Pattern;
 public class HandBookFragment extends Fragment {
 
     private TextView tvYeuCauChamSoc1, tvHuongDanTrong1, tvSauBenhVaDieuTri1, tvTen;
+    private TextView tvYeuCauChamSoc, tvHuongDanTrong, tvSauBenhVaDieuTri, tvTen1;
     private ImageButton imgBtCachua,imgBtNgo,imgBtLua,imgBtTao,imgBtOt,imgBtKhoaiTay,imgBtDauNanh,imgBtNho,imgBtDuaLeo,ImgBtDauTay;
     private SQLiteDatabase database;
     private ImageView img1,img2,img3;
     private SearchView searchView;
     private String DATABASE_NAME = "camnang.db";
     private String DB_PATH_SUFFIX = "/databases/";
+    String selectedLanguage;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,9 +50,12 @@ public class HandBookFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_handbook, container, false);
+
+        selectedLanguage= MyApplication.getSelectedLanguage();
         initViews(view);
         setupDatabase();
         setupSearchView();
+        updateTextView(selectedLanguage);
         updateUIWithPrediction("9");
 
         imgBtCachua.setOnClickListener(v ->{
@@ -162,6 +169,10 @@ public class HandBookFragment extends Fragment {
         img2 = view.findViewById(R.id.imageView2);
         img3 = view.findViewById(R.id.imageView3);
         searchView = view.findViewById(R.id.searchView);
+        tvHuongDanTrong = view.findViewById(R.id.tvHuongDanTrong);
+        tvYeuCauChamSoc = view.findViewById(R.id.tvYeuCauChamSoc);
+        tvSauBenhVaDieuTri = view.findViewById(R.id.tvSauBenhVaDieuTri);
+        tvTen1 = view.findViewById(R.id.tvHandbook);
 
 
     }
@@ -340,6 +351,46 @@ public class HandBookFragment extends Fragment {
             myInput.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateTextView(String language) {
+        switch (language) {
+            case "English":
+                tvTen1.setText(getString(R.string.handBook_text_en));
+                tvYeuCauChamSoc.setText(getString(R.string.handBook_text1_en));
+                tvHuongDanTrong.setText(getString(R.string.handBook_text2_en));
+                tvSauBenhVaDieuTri.setText(getString(R.string.handBook_text3_en));
+                searchView.setQueryHint(getString(R.string.handBook_text4_en));
+
+
+                break;
+            case "Vietnamese":
+                tvTen1.setText(getString(R.string.handBook_text_vn));
+                tvYeuCauChamSoc.setText(getString(R.string.handBook_text1_vn));
+                tvHuongDanTrong.setText(getString(R.string.handBook_text2_vn));
+                tvSauBenhVaDieuTri.setText(getString(R.string.handBook_text3_vn));
+                searchView.setQueryHint(getString(R.string.handBook_text4_vn));
+
+
+                break;
+            case "Japanese":
+                tvTen1.setText(getString(R.string.handBook_text_jp));
+                tvYeuCauChamSoc.setText(getString(R.string.handBook_text1_jp));
+                tvHuongDanTrong.setText(getString(R.string.handBook_text2_jp));
+                tvSauBenhVaDieuTri.setText(getString(R.string.handBook_text3_jp));
+                searchView.setQueryHint(getString(R.string.handBook_text4_jp));
+
+
+                break;
+            default:
+                tvTen1.setText(getString(R.string.handBook_text_vn));
+                tvYeuCauChamSoc.setText(getString(R.string.handBook_text1_vn));
+                tvHuongDanTrong.setText(getString(R.string.handBook_text2_vn));
+                tvSauBenhVaDieuTri.setText(getString(R.string.handBook_text3_vn));
+                searchView.setQueryHint(getString(R.string.handBook_text4_vn));
+
+                break;
         }
     }
 

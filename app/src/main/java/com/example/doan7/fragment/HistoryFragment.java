@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doan7.History;
+import com.example.doan7.MyApplication;
 import com.example.doan7.R;
 import com.example.doan7.Suggestion;
 import com.example.doan7.adapter.HistoryAdapter;
@@ -89,6 +91,67 @@ public class HistoryFragment extends Fragment {
     private String data, data1, data2, data3;
     private String DATABASE_NAME = "goiy.db";
     private SharedPreferences sharedPreferences;
+    String selectedLanguage;
+    private TextView tvHistory;
+
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        recyclerView = view.findViewById(R.id.recyclerViewHistory);
+
+        tvHistory = view.findViewById(R.id.tvHistory);
+        selectedLanguage= MyApplication.getSelectedLanguage();
+        updateView(selectedLanguage);
+        ImageButton imgBtDelete = view.findViewById(R.id.imgBtDelete);
+
+        imgBtDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gọi phương thức xóa dữ liệu trong SharedPreferences khi button được click
+                deleteDataFromSharedPreferences();
+            }
+        });
+        return view;
+    }
+
+    private void deleteDataFromSharedPreferences() {
+        // Khởi tạo một Editor để chỉnh sửa SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Xóa dữ liệu trong SharedPreferences với key được chỉ định
+        editor.clear(); // Xóa toàn bộ dữ liệu
+        // Hoặc nếu bạn chỉ muốn xóa một phần dữ liệu, bạn có thể sử dụng phương thức remove với key tương ứng
+        // editor.remove("your_key_to_delete");
+
+        // Lưu thay đổi
+        editor.apply();
+
+        // Thông báo hoặc cập nhật giao diện nếu cần
+        Toast.makeText(requireContext(), "Dữ liệu đã được xóa", Toast.LENGTH_SHORT).show();
+        onResume();
+
+        // Sau khi xóa dữ liệu, bạn có thể cập nhật giao diện hoặc làm bất kỳ công việc nào khác cần thiết ở đây
+    }
+
+    private void updateView(String language) {
+        switch (language) {
+            case "English":
+                tvHistory.setText(getString(R.string.history_text_en));
+                break;
+            case "Vietnamese":
+               tvHistory.setText(getString(R.string.history_text_vn));
+                break;
+            case "Japanese":
+                tvHistory.setText(getString(R.string.history_text_jp));
+                break;
+            default:
+                tvHistory.setText(getString(R.string.history_text_vn));
+                break;
+        }
+    }
 
     @Override
     public void onResume() {
@@ -101,7 +164,7 @@ public class HistoryFragment extends Fragment {
         List<History> historyList = new ArrayList<>();
 
         // Đọc dữ liệu từ SharedPreferences
-         sharedPreferences = requireActivity().getSharedPreferences("history_prefs", getContext().MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences("history_prefs", getContext().MODE_PRIVATE);
         int historyCount = sharedPreferences.getInt("history_count", 0);
 
         for (int i = 0; i < historyCount; i++) {
@@ -145,41 +208,5 @@ public class HistoryFragment extends Fragment {
             Log.e("HistoryFragment", "No data found for id: " + id);
         }
         cursor.close();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_history, container, false);
-        recyclerView = view.findViewById(R.id.recyclerViewHistory);
-
-        ImageButton imgBtDelete = view.findViewById(R.id.imgBtDelete);
-        imgBtDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Gọi phương thức xóa dữ liệu trong SharedPreferences khi button được click
-                deleteDataFromSharedPreferences();
-            }
-        });
-        return view;
-    }
-
-    private void deleteDataFromSharedPreferences() {
-        // Khởi tạo một Editor để chỉnh sửa SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        // Xóa dữ liệu trong SharedPreferences với key được chỉ định
-        editor.clear(); // Xóa toàn bộ dữ liệu
-        // Hoặc nếu bạn chỉ muốn xóa một phần dữ liệu, bạn có thể sử dụng phương thức remove với key tương ứng
-        // editor.remove("your_key_to_delete");
-
-        // Lưu thay đổi
-        editor.apply();
-
-        // Thông báo hoặc cập nhật giao diện nếu cần
-        Toast.makeText(requireContext(), "Dữ liệu đã được xóa", Toast.LENGTH_SHORT).show();
-        onResume();
-
-        // Sau khi xóa dữ liệu, bạn có thể cập nhật giao diện hoặc làm bất kỳ công việc nào khác cần thiết ở đây
     }
 }

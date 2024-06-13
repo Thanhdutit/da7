@@ -1,5 +1,7 @@
 package com.example.doan7.fragment;
 import static android.content.Context.MODE_PRIVATE;
+
+import com.example.doan7.MyApplication;
 import com.example.doan7.fragment.HistoryFragment;
 import com.example.doan7.adapter.HistoryAdapter;
 
@@ -72,8 +74,8 @@ public class HomeFragment extends Fragment {
     private String[] diseases = {"benh1", "benh2", "benh3"};
     private ImageButton imgBtDelete;
     private ImageView imgView, ibBackHome, imgAdd;
-    private Button predict, suggestion;
-    private TextView tvBenhChanDoan, tvAddImg1, tvAddImg2;
+    private Button predict, suggestion,btnCamera, btnGallery;
+    private TextView tvBenhChanDoan, tvAddImg1, tvAddImg2,tv,tv7,tv9,tvChoseImg;
     private Bitmap image;
     private SQLiteDatabase database;
     private String DATABASE_NAME = "goiy.db";
@@ -89,6 +91,7 @@ public class HomeFragment extends Fragment {
     private CardView cardView;
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 2;
+    String selectedLanguage;
 
 
     @Override
@@ -97,6 +100,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for requireActivity() fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        selectedLanguage = MyApplication.getSelectedLanguage();
         // Initialize views
         initViews(view);
 
@@ -109,6 +114,8 @@ public class HomeFragment extends Fragment {
         // Setup suggestion button
         setupSuggestionButton();
 
+        updateTextView(selectedLanguage);
+
         // Setup image picker dialog
         imgAdd.setOnClickListener(v -> showImagePickerDialog());
 
@@ -118,8 +125,9 @@ public class HomeFragment extends Fragment {
 
 
         ibBackHome.setOnClickListener(v -> {
-                Intent myIntent = new Intent(requireActivity(), Home.class);
-                startActivity(myIntent);
+//                Intent myIntent = new Intent(requireActivity(), Home.class);
+//                startActivity(myIntent);
+                getActivity().finish();
             });
 
 
@@ -136,17 +144,25 @@ public class HomeFragment extends Fragment {
         tvAddImg2 = view.findViewById(R.id.tvAddImag2);
         imgAdd = view.findViewById(R.id.imgAdd);
         imgBtDelete = view.findViewById(R.id.imgBtDelete);
+        tv = view.findViewById((R.id.textView));
+        tv7 = view.findViewById((R.id.textView7));
+        tv9 = view.findViewById((R.id.textView9));
+
+
     }
 
     private void showImagePickerDialog() {
         LayoutInflater inflater = LayoutInflater.from(requireActivity());
         View view = inflater.inflate(R.layout.dialog_image, null);
-
-
-        Button btnCamera = view.findViewById(R.id.btnCamera);
-        Button btnGallery = view.findViewById(R.id.btnGallery);
-
 //        AlertDialog dialog = new AlertDialog.Builder(requireActivity())
+
+        tvChoseImg = view.findViewById((R.id.tvChoseImg));
+        btnCamera = view.findViewById(R.id.btnCamera);
+        btnGallery = view.findViewById(R.id.btnGallery);
+
+        updateDialog(selectedLanguage);
+
+
         AlertDialog dialog = new AlertDialog.Builder(requireActivity(), R.style.TransparentDialog)
                 .setView(view)
                 .create();
@@ -243,7 +259,8 @@ public class HomeFragment extends Fragment {
         imgBtDelete.setVisibility(View.VISIBLE);
         // Ẩn nút gợi ý
         suggestion.setVisibility(View.GONE);
-        tvBenhChanDoan.setText("Bệnh Chuẩn đoán");
+        //tvBenhChanDoan.setText("Bệnh Chuẩn đoán");
+        updateTextView(selectedLanguage);
 
     }
 
@@ -256,7 +273,8 @@ public class HomeFragment extends Fragment {
         tvAddImg1.setVisibility(View.VISIBLE);
         tvAddImg2.setVisibility(View.VISIBLE);
         suggestion.setVisibility(View.INVISIBLE);
-        tvBenhChanDoan.setText("Bệnh chuẩn đoán");
+        //tvBenhChanDoan.setText("Bệnh chuẩn đoán");
+        updateTextView(selectedLanguage);
     }
 
 
@@ -389,19 +407,83 @@ public class HomeFragment extends Fragment {
 //        c.close();
 //        suggestion.setVisibility(View.VISIBLE);
 //    }
+//private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
+//    String[] selectionArgs = {String.valueOf(maxIndex)};
+//    Cursor c = database.query("tbgoiy", null, "id=?", selectionArgs, null, null, null);
+//
+//    if (c.moveToFirst()) {
+//        data = c.getString(1);  // Tên bệnh
+//        data1 = c.getString(2); // Triệu chứng
+//        data2 = c.getString(3); // Cách điều trị
+//        data3 =c.getString(0);
+//        // Lưu dữ liệu vào SharedPreferences
+//        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("history_prefs", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//        // Tạo một ID duy nhất cho lần nhận diện hiện tại
+//        int historyCount = sharedPreferences.getInt("history_count", 0);
+//        String id = "" + historyCount;
+//
+//        // Lưu thông tin của lần nhận diện vào SharedPreferences
+//        editor.putString("id_" + historyCount, id);
+//        editor.putString("tenbenh_" + historyCount, data);
+//        editor.putString("trieuchung_" + historyCount, data1);
+//        editor.putString("dieutri_" + historyCount, data2);
+//        editor.putInt("image_resource_" + historyCount, R.drawable.cachua);  // Thay R.drawable.cachua bằng ID hình ảnh tương ứng
+//        editor.putString("lop",data3);
+//
+//
+//        // Tăng số lần nhận diện lên 1
+//        editor.putInt("history_count", historyCount + 1);
+//        editor.apply();
+//
+//        tvBenhChanDoan.setText(data);
+//    }
+//
+//    c.close();
+//    suggestion.setVisibility(View.VISIBLE);
+//}
 private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
+    // Lấy ngôn ngữ đã chọn từ SharedPreferences hoặc biến toàn cục
+
+
+    // Xác định tên các cột dựa trên ngôn ngữ đã chọn
+    String tenBenhColumn;
+    String trieuChungColumn;
+    String cachDieuTriColumn;
+
+    switch (selectedLanguage) {
+        case "English":
+            tenBenhColumn = "tenbenh_en";
+            trieuChungColumn = "trieuchung_en";
+            cachDieuTriColumn = "chuatri_en";
+            break;
+        case "Japanese":
+            tenBenhColumn = "tenbenhjp";
+            trieuChungColumn = "trieuchung_jp";
+            cachDieuTriColumn = "chuatri_jp";
+            break;
+        case "Vietnamese":
+        default:
+            tenBenhColumn = "tenbenh";
+            trieuChungColumn = "trieuchung";
+            cachDieuTriColumn = "chuatri";
+            break;
+    }
+
     String[] selectionArgs = {String.valueOf(maxIndex)};
-    Cursor c = database.query("tbgoiy", null, "id=?", selectionArgs, null, null, null);
+    Cursor c = database.query("tbgoiy", new String[]{"id", tenBenhColumn, trieuChungColumn, cachDieuTriColumn}, "id=?", selectionArgs, null, null, null);
+
     if (c.moveToFirst()) {
-        data = c.getString(1);  // Tên bệnh
-        data1 = c.getString(2); // Triệu chứng
-        data2 = c.getString(3); // Cách điều trị
-        data3 =c.getString(0);
+        data3 = c.getString(0); // ID
+        data = c.getString(1);  // Tên bệnh theo ngôn ngữ đã chọn
+        data1 = c.getString(2); // Triệu chứng theo ngôn ngữ đã chọn
+        data2 = c.getString(3); // Cách điều trị theo ngôn ngữ đã chọn
+
         // Lưu dữ liệu vào SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("history_prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // Tạo một ID duy nhất cho lần nhận diện hiện tại
         int historyCount = sharedPreferences.getInt("history_count", 0);
         String id = "" + historyCount;
 
@@ -410,9 +492,8 @@ private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
         editor.putString("tenbenh_" + historyCount, data);
         editor.putString("trieuchung_" + historyCount, data1);
         editor.putString("dieutri_" + historyCount, data2);
-        editor.putInt("image_resource_" + historyCount, R.drawable.cachua);  // Thay R.drawable.cachua bằng ID hình ảnh tương ứng
-        editor.putString("lop",data3);
-
+        editor.putInt("image_resource_" + historyCount, R.drawable.cachua); // Cập nhật hình ảnh đúng
+        editor.putString("lop", data3);
 
         // Tăng số lần nhận diện lên 1
         editor.putInt("history_count", historyCount + 1);
@@ -468,6 +549,83 @@ private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
             myInput.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void updateTextView(String language) {
+        switch (language) {
+            case "English":
+                tv.setText(getString(R.string.home_text_en));
+                tv7.setText(getString(R.string.home_text1_en));
+                tv9.setText(getString(R.string.home_text2_en));
+                tvAddImg1.setText(getString(R.string.home_text3_en));
+                tvAddImg2.setText(getString(R.string.home_text4_en));
+                predict.setText(getString(R.string.home_text5_en));
+                tvBenhChanDoan.setText(getString(R.string.home_text6_en));
+                suggestion.setText(getString(R.string.home_text7_en));
+
+
+                break;
+            case "Vietnamese":
+                tv.setText(getString(R.string.home_text_vn));
+                tv7.setText(getString(R.string.home_text1_vn));
+                tv9.setText(getString(R.string.home_text2_vn));
+                tvAddImg1.setText(getString(R.string.home_text3_vn));
+                tvAddImg2.setText(getString(R.string.home_text4_vn));
+                predict.setText(getString(R.string.home_text5_vn));
+                tvBenhChanDoan.setText(getString(R.string.home_text6_vn));
+                suggestion.setText(getString(R.string.home_text7_vn));
+
+
+                break;
+            case "Japanese":
+                tv.setText(getString(R.string.home_text_jp));
+                tv7.setText(getString(R.string.home_text1_jp));
+                tv9.setText(getString(R.string.home_text2_jp));
+                tvAddImg1.setText(getString(R.string.home_text3_jp));
+                tvAddImg2.setText(getString(R.string.home_text4_jp));
+                predict.setText(getString(R.string.home_text5_jp));
+                tvBenhChanDoan.setText(getString(R.string.home_text6_jp));
+                suggestion.setText(getString(R.string.home_text7_jp));
+
+
+
+                break;
+            default:
+                tv.setText(getString(R.string.home_text_vn));
+                tv7.setText(getString(R.string.home_text1_vn));
+                tv9.setText(getString(R.string.home_text2_vn));
+                tvAddImg1.setText(getString(R.string.home_text3_vn));
+                tvAddImg2.setText(getString(R.string.home_text4_vn));
+                predict.setText(getString(R.string.home_text5_vn));
+                tvBenhChanDoan.setText(getString(R.string.home_text6_vn));
+                suggestion.setText(getString(R.string.home_text7_vn));
+
+                break;
+        }
+    }
+
+    private void updateDialog(String language) {
+        switch (language) {
+            case "English":
+                btnCamera.setText(getString(R.string.dialogImage_Camera_en));
+                btnGallery.setText(getString(R.string.dialogImage_Library_en));
+                tvChoseImg.setText(getString(R.string.dialogImage_en));
+                break;
+            case "Vietnamese":
+                btnCamera.setText(getString(R.string.dialogImage_Camera_vn));
+                btnGallery.setText(getString(R.string.dialogImage_Library_vn));
+                tvChoseImg.setText(getString(R.string.dialogImage_vn));
+                break;
+            case "Japanese":
+                btnCamera.setText(getString(R.string.dialogImage_Camera_jp));
+                btnGallery.setText(getString(R.string.dialogImage_Library_jp));
+                tvChoseImg.setText(getString(R.string.dialogImage_jp));
+                break;
+            default:
+                btnCamera.setText(getString(R.string.dialogImage_Camera_vn));
+                btnGallery.setText(getString(R.string.dialogImage_Library_vn));
+                tvChoseImg.setText(getString(R.string.dialogImage_vn));
+                break;
         }
     }
 }

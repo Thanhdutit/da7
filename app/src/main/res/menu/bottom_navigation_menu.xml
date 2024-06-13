@@ -4,17 +4,17 @@
     <item
         android:id="@+id/navigation_chan_doan"
         android:icon="@drawable/predict"
-        android:title="chuẩn đoán" />
+        android:title="@string/nav_Diagnosis_vn" />
+    <item
+        android:id="@+id/navigation_handbook"
+        android:icon="@drawable/handbook"
+        android:title="@string/nav_Handbook_vn" />
+
+
     <item
         android:id="@+id/navigation_history"
-        android:icon="@drawable/handbook"
-        android:title="Cẩm nang" />
-
-
-    <item
-        android:id="@+id/navigation_cam_nang"
         android:icon="@drawable/search"
-        android:title="Lịch sử" />
+        android:title="@string/nav_History_vn" />
 
 
 </menu>

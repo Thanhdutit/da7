@@ -1,5 +1,145 @@
 <resources>
     <string name="app_name">doan7</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_title_vn">Chẩn đoán bệnh trên lá cây</string>
+    <string name="app_title_en">Diagnosing Diseases on Plant Leaves</string>
+    <string name="app_title_jp">植物の葉の病気診断</string>
+
+    <string name="home_vn">Trang chủ</string>
+    <string name="home_en">Home</string>
+    <string name="home_jp">ホーム</string>
+
+    <string name="introduce_vn">Ứng dụng chẩn đoán bệnh trên lá
+        cây giúp người dùng nhận diện bệnh trên lá cây thông qua
+        việc cung cấp ảnh của lá cây bị nhiễm bệnh. Với cơ sở dữ
+        liệu lớn hỗ trợ hơn 40 loại bệnh trên 10 loại cây phổ biến,
+        ứng dụng sẽ phân tích và đưa ra dự đoán chính xác về bệnh
+        cây có thể đang mắc phải đồng thời đưa tra triệu chứng và
+        cách chữa trị. Qua đó, người dùng có thể nhanh chóng định
+        rõ tình trạng sức khỏe của cây cối, từ đó đưa ra
+        các biện pháp phòng tránh và điều trị phù hợp </string>
+    <string name="introduce_en">The plant leaf disease
+        diagnosis application helps users identify diseases
+        on plant leaves by providing images of the affected leaves.
+        With a large database supporting over 40 common plant diseases
+        on 10 common types of plants, the application analyzes
+        and provides accurate predictions about the possible diseases
+        the plants may be suffering from, along with symptom
+        identification and treatment methods. This allows users
+        to quickly determine the health status of their plants
+        and suggest
+        appropriate prevention and treatment measures;</string>
+    <string name="introduce_jp">植物の葉の病気を診断するアプリ
+        ケーションは、植物の葉の画像を提供することで、ユーザーが葉
+        の病気を識別できるよう支援します。 40以上の一般的な植物と10
+        以上の一般的な木に対応する大規模なデータベースを使用して、ア
+        プリケーションは正確な診断と病気の症状と治療法の提供を行いま
+        す。 これにより、ユーザーは植物の健康状態を迅速に把握し、適切
+        な予防措置や治療法を提案できます。</string>
+
+    <string name="introduce1_vn">Hướng dẫn cách chụp ảnh để ứng dụng chẩn đoán và đưa ra kết quả tốt nhất</string>
+    <string name="introduce1_en">Guide on how to take photos for the application to diagnose and provide the best results</string>
+    <string name="introduce1_jp">アプリケーションが最も良い結果を提供するための写真の撮り方のガイド</string>
+
+    <string name="introduce2_vn">Chụp bao quát bề mặt lá bị bệnh như mẫu dưới đây</string>
+    <string name="introduce2_en">Take an overview photo of the diseased leaf surface as shown in the example below</string>
+    <string name="introduce2_jp">以下の例のように、病気にかかった葉の表面全体を撮影してください</string>
+
+    <string name="nav_Diagnosis_vn">Chuẩn đoán</string>
+    <string name="nav_Diagnosis_en">Diagnosis</string>
+    <string name="nav_Diagnosis_jp">診断 </string>
+
+    <string name="nav_History_vn">Lịch sử</string>
+    <string name="nav_History_en">History</string>
+    <string name="nav_History_jp">歴史 </string>
+
+    <string name="nav_Handbook_vn">Cẩm nang</string>
+    <string name="nav_Handbook_en">Handbook</string>
+    <string name="nav_Handbook_jp">ハンドブック </string>
+
+    <string name="suggestion_Symptoms_vn">Triệu chứng</string>
+    <string name="suggestion_Symptoms_en">Symptoms</string>
+    <string name="suggestion_Symptoms_jp">症状</string>
+
+    <string name="suggestion_Treatment_vn">Cách chữa trị</string>
+    <string name="suggestion_Treatment_en">Treatment</string>
+    <string name="suggestion_Treatment_jp">治療法</string>
+
+    <string name="dialogImage_vn">Chọn ảnh từ</string>
+    <string name="dialogImage_en">Choose Image From</string>
+    <string name="dialogImage_jp">画像を選択</string>
+
+    <string name="dialogImage_Library_vn">Thư viện</string>
+    <string name="dialogImage_Library_en">Photo library</string>
+    <string name="dialogImage_Library_jp">写真ライブラリ</string>
+
+    <string name="dialogImage_Camera_vn">Máy ảnh</string>
+    <string name="dialogImage_Camera_en">Camera</string>
+    <string name="dialogImage_Camera_jp">カメラ</string>
+
+    <string name="suggestion_Back_vn">Trở lại</string>
+    <string name="suggestion_Back_en">Back</string>
+    <string name="suggestion_Back_jp">戻る</string>
+
+    <string name="home_text_vn">Chẩn đoán</string>
+    <string name="home_text_en">Diagnosis</string>
+    <string name="home_text_jp">診断</string>
+
+    <string name="home_text1_vn">Các loại cây trồng chuẩn đoán</string>
+    <string name="home_text1_en">Diagnosing Plant Types</string>
+    <string name="home_text1_jp">植物タイプの診断</string>
+
+    <string name="home_text2_vn">Hiện tại AI chỉ chẩn đoán được một số bệnh những cây trồng trên,các loại cây khác đang trong quá trình phát triển</string>
+    <string name="home_text2_en">Currently, AI can only diagnose some diseases of some crops, while other types of crops are still in the development process.</string>
+    <string name="home_text2_jp">現在、AIは一部の作物の一部の病気のみを診断できますが、他の種類の作物はまだ開発中です。</string>
+
+    <string name="home_text3_vn">Thêm hình ảnh để chuẩn đoán</string>
+    <string name="home_text3_en">Add images for diagnosis</string>
+    <string name="home_text3_jp">診断用の画像を追加します</string>
+
+    <string name="home_text4_vn">Cần chụp toàn bộ lá trong khung hình để cho kết quả tốt</string>
+    <string name="home_text4_en">You need to capture the entire leaf within the frame for best results.</string>
+    <string name="home_text4_jp">最良の結果を得るためには、フレーム内の葉全体をキャプチャする必要があります。</string>
+
+    <string name="home_text5_vn">Thực hiện chuẩn đoán</string>
+    <string name="home_text5_en">Perform Diagnosis</string>
+    <string name="home_text5_jp">診断を実行する</string>
+
+    <string name="home_text6_vn">Bệnh chuẩn đoán</string>
+    <string name="home_text6_en">Disease Diagnosis</string>
+    <string name="home_text6_jp">病気の診断</string>
+
+    <string name="home_text7_vn">Triệu chứng và cách điều trị</string>
+    <string name="home_text7_en">Symptoms and Treatments</string>
+    <string name="home_text7_jp">症状と治療方法</string>
+
+    <string name="handBook_text_vn">Cẩm nang chăm sóc cây trồng</string>
+    <string name="handBook_text_en">Handbook of Plant Care</string>
+    <string name="handBook_text_jp">植物ケアハンドブック</string>
+
+    <string name="handBook_text1_vn">Yêu cầu chăm sóc</string>
+    <string name="handBook_text1_en">Care Requirements</string>
+    <string name="handBook_text1_jp">ケア要件</string>
+
+    <string name="handBook_text2_vn">Hướng dẫn trồng</string>
+    <string name="handBook_text2_en">Planting Guide</string>
+    <string name="handBook_text2_jp">植え付けガイド</string>
+
+    <string name="handBook_text3_vn">Sâu bệnh và điều trị</string>
+    <string name="handBook_text3_en">Pests and Treatment</string>
+    <string name="handBook_text3_jp">害虫と治療</string>
+
+    <string name="handBook_text4_vn">Tìm kiếm cây trồng</string>
+    <string name="handBook_text4_en">Search for plants</string>
+    <string name="handBook_text4_jp">植物を検索</string>
+
+    <string name="history_text_vn">Lịch sử đã chuẩn đoán</string>
+    <string name="history_text_en">Diagnosis History</string>
+    <string name="history_text_jp">診断履歴</string>
+
+
+
+
+
+
 </resources>

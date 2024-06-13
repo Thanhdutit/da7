@@ -42,41 +42,41 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvTiTle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Ứng dụng chẩn đoán bệnh trên cây trồng"
+                android:text="@string/app_title_vn"
                 android:textColor="#E91E63"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="24dp"/>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvIntroduce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ứng dụng chẩn đoán bệnh trên lá cây giúp người dùng nhận diện bệnh trên lá cây thông qua việc cung cấp ảnh của lá cây bị nhiễm bệnh. Với cơ sở dữ liệu lớn hỗ trợ hơn 40 loại bệnh trên 10 loại cây phổ biến, ứng dụng sẽ phân tích và đưa ra dự đoán chính xác về bệnh cây có thể đang mắc phải đồng thời đưa tra triệu chứng và cách chữa trị. Qua đó, người dùng có thể nhanh chóng định rõ tình trạng sức khỏe của cây cối, từ đó đưa ra các biện pháp phòng tránh và điều trị phù hợp."
+                android:text="@string/introduce_vn"
                 android:textColor="#2196F3"
                 android:textSize="20sp"
                 android:lineSpacingExtra="5dp"
                 android:layout_marginBottom="24dp"/>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvIntroduce1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hướng dẫn cách chụp ảnh để ứng dụng chẩn đoán và đưa ra kết quả tốt nhất:"
+                android:text="@string/introduce1_vn"
                 android:textColor="#FFC107"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="24dp"/>
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tvIntroduce2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chụp bao quát bề mặt lá bị bệnh như mẫu dưới đây:"
+                android:text="@string/introduce2_vn"
                 android:textColor="#2196F3"
                 android:textSize="20sp"
                 android:layout_marginBottom="24dp"/>

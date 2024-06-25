@@ -4,15 +4,6 @@ public class History {
     private String id; // Thêm thuộc tính id
     private String name;
     private int imageId;
-
-    public String getLop() {
-        return lop;
-    }
-
-    public void setLop(String lop) {
-        this.lop = lop;
-    }
-
     private String lop;
 
     public History() {
@@ -48,5 +39,13 @@ public class History {
 
     public void setImageId(int imageId) {
         this.imageId = imageId;
+    }
+
+    public String getLop() {
+        return lop;
+    }
+
+    public void setLop(String lop) {
+        this.lop = lop;
     }
 }

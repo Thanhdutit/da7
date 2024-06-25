@@ -35,7 +35,7 @@ public class HandBookFragment extends Fragment {
 
     private TextView tvYeuCauChamSoc1, tvHuongDanTrong1, tvSauBenhVaDieuTri1, tvTen;
     private TextView tvYeuCauChamSoc, tvHuongDanTrong, tvSauBenhVaDieuTri, tvTen1;
-    private ImageButton imgBtCachua,imgBtNgo,imgBtLua,imgBtTao,imgBtOt,imgBtKhoaiTay,imgBtDauNanh,imgBtNho,imgBtDuaLeo,ImgBtDauTay;
+    private ImageButton imgBtBi,imgBtCachua,imgBtNgo,imgBtLua,imgBtTao,imgBtOt,imgBtKhoaiTay,imgBtDauNanh,imgBtNho,imgBtDuaLeo,ImgBtDauTay;
     private SQLiteDatabase database;
     private ImageView img1,img2,img3;
     private SearchView searchView;
@@ -56,7 +56,7 @@ public class HandBookFragment extends Fragment {
         setupDatabase();
         setupSearchView();
         updateTextView(selectedLanguage);
-        updateUIWithPrediction("9");
+        updateUIWithPrediction("1");
 
         imgBtCachua.setOnClickListener(v ->{
             updateUIWithPrediction("1");
@@ -147,6 +147,15 @@ public class HandBookFragment extends Fragment {
 
 
         });
+        imgBtBi.setOnClickListener(v ->{
+            updateUIWithPrediction("11");
+            Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.bi);
+            img1.setImageDrawable(drawable);
+            img2.setImageDrawable(drawable);
+            img3.setImageDrawable(drawable);
+
+
+        });
 
         return view;
     }
@@ -157,6 +166,7 @@ public class HandBookFragment extends Fragment {
         tvTen = view.findViewById(R.id.tvTen);
         imgBtCachua = view.findViewById(R.id.imgBtCachua);
         imgBtLua = view.findViewById(R.id.imgBtLua);
+        imgBtBi = view.findViewById(R.id.imgBtBi);
         imgBtDauNanh = view.findViewById(R.id.imgBtDauNanh);
         ImgBtDauTay = view.findViewById(R.id.imgBtDau);
         imgBtDuaLeo = view.findViewById(R.id.imgBtDuaLeo);
@@ -182,6 +192,8 @@ public class HandBookFragment extends Fragment {
         searchView.setQuery("", false);
         // Clear focus của SearchView để không hiển thị bàn phím khi Fragment được tải lại
         searchView.clearFocus();
+        updateUIWithPrediction("1");
+
     }
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -201,35 +213,78 @@ public class HandBookFragment extends Fragment {
 
     // Phương thức này sẽ được gọi khi người dùng thực hiện tìm kiếm
     private void searchDatabase(String query) {
+        String tenBenhColumn;
+        String yeuCauChamSocColumn;
+        String huongDanTrongColumn;
+        String sauBenhVaDieuTriColumn;
+
+
+
+        switch (selectedLanguage) {
+            case "English":
+                tenBenhColumn = "ten_en";
+                yeuCauChamSocColumn = "yeucauchamsoc_en";
+                huongDanTrongColumn = "huongdantrong_en";
+                sauBenhVaDieuTriColumn ="saubenhvadieutri_en";
+
+
+                break;
+            case "Japanese":
+                tenBenhColumn = "ten_jp";
+                yeuCauChamSocColumn = "yeucauchamsoc_jp";
+                huongDanTrongColumn = "huongdantrong_jp";
+                sauBenhVaDieuTriColumn ="saubenhvadieutri_jp";
+                break;
+            case "Vietnamese":
+            default:
+                tenBenhColumn = "ten";
+                yeuCauChamSocColumn = "yeucauchamsoc";
+                huongDanTrongColumn = "huongdantrong";
+                sauBenhVaDieuTriColumn ="saubenhvadieutri";
+                break;
+        }
+
         // Truy vấn cơ sở dữ liệu để tìm kiếm dựa trên 'ten'
-        Cursor c = database.query("tb_camnang",
-               null, // Chọn các cột cụ thể
-                "ten LIKE ?", // Điều kiện tìm kiếm
+        Cursor c = database.query(
+                "tb_camnang",
+                new String[]{"id", tenBenhColumn, yeuCauChamSocColumn, huongDanTrongColumn, sauBenhVaDieuTriColumn},
+                tenBenhColumn + " LIKE ?", // Điều kiện tìm kiếm dựa trên tên bệnh theo ngôn ngữ
                 new String[]{"%" + query + "%"}, // Giá trị tìm kiếm
                 null, // Không nhóm theo
                 null, // Không có điều kiện nhóm
-                null); // Không sắp xếp
+                null // Không sắp xếp
+        );
 
         if (c.moveToFirst()) {
-            // Lấy id và các giá trị khác từ Cursor
             int id = c.getInt(c.getColumnIndexOrThrow("id"));
-            String ten = c.getString(c.getColumnIndexOrThrow("ten"));
-            String yeucauchamsoc = c.getString(c.getColumnIndexOrThrow("yeucauchamsoc"));
-            String huongdantrong = c.getString(c.getColumnIndexOrThrow("huongdantrong"));
-            String saubenhvadieutri = c.getString(c.getColumnIndexOrThrow("saubenhvadieutri"));
+            String ten = c.getString(1);
+            String yeucauchamsoc = c.getString(2);
+            String huongdantrong = c.getString(3);
+            String saubenhvadieutri = c.getString(4);
 
             // Hiển thị kết quả tìm kiếm
             tvTen.setText(ten);
             tvYeuCauChamSoc1.setText(formatTextWithNewline(yeucauchamsoc));
             tvHuongDanTrong1.setText(formatTextWithNewline(huongdantrong));
             tvSauBenhVaDieuTri1.setText(formatTextWithNewline(saubenhvadieutri));
-            updateImage(ten);
+            updateImage(id);
 
             // Hiển thị id của mục tìm kiếm
 //            Toast.makeText(requireActivity(), "ID của kết quả tìm kiếm: " + id, Toast.LENGTH_LONG).show();
         } else {
             // Nếu không tìm thấy dữ liệu, hiển thị thông báo
-            tvTen.setText("Không tìm thấy");
+            switch (selectedLanguage) {
+                case "English":
+                    tvTen.setText(getString(R.string.handBook_text0_en));
+                    break;
+                case "Japanese":
+                    tvTen.setText(getString(R.string.handBook_text0_jp));
+                    break;
+                case "Vietnamese":
+                default:
+                    tvTen.setText(getString(R.string.handBook_text0_vn));
+                    break;
+            }
             tvYeuCauChamSoc1.setText("");
             tvHuongDanTrong1.setText("");
             tvSauBenhVaDieuTri1.setText("");
@@ -249,7 +304,48 @@ public class HandBookFragment extends Fragment {
         return pattern.matcher(normalized).replaceAll("");
     }
 
-    private void updateImage(String ten) {
+    private void updateImage(int id) {
+        String ten = "";
+        switch (id){
+            case 1:
+                ten = "cachua";
+                break;
+
+            case 2:
+                ten = "lua";
+                break;
+
+            case 3:
+                ten = "daunanh";
+                break;
+            case 4:
+                ten = "dautay";
+                break;
+            case 5:
+                ten = "dualeo";
+                break;
+
+            case 6:
+                ten = "khoaitay";
+                break;
+
+            case 7:
+                ten = "nho";
+                break;
+            case 8:
+                ten = "otchuong";
+                break;
+            case 9:
+                ten = "tao";
+                break;
+            case 10:
+                ten = "ngo";
+                break;
+            case 11:
+                ten = "bi";
+                break;
+
+        }
         // Tạo tên tài nguyên dựa trên kết quả tìm kiếm
         String drawableName = removeAccents(ten).toLowerCase().replace(" ", ""); // Biến đổi tên thành dạng thích hợp cho tên tài nguyên
 
@@ -275,7 +371,35 @@ public class HandBookFragment extends Fragment {
 
 
     private void updateUIWithPrediction(String id) {
-        Cursor c = database.query("tb_camnang", null, "id=?", new String[]{id}, null, null, null);
+
+        String tenBenhColumn;
+        String yeuCauChamSocColumn;
+        String huongDanTrongColumn;
+        String sauBenhVaDieuTriColumn;
+
+
+        switch (selectedLanguage) {
+            case "English":
+                tenBenhColumn = "ten_en";
+                yeuCauChamSocColumn = "yeucauchamsoc_en";
+                huongDanTrongColumn = "huongdantrong_en";
+                sauBenhVaDieuTriColumn ="saubenhvadieutri_en";
+                break;
+            case "Japanese":
+                tenBenhColumn = "ten_jp";
+                yeuCauChamSocColumn = "yeucauchamsoc_jp";
+                huongDanTrongColumn = "huongdantrong_jp";
+                sauBenhVaDieuTriColumn ="saubenhvadieutri_jp";
+                break;
+            case "Vietnamese":
+            default:
+                tenBenhColumn = "ten";
+                yeuCauChamSocColumn = "yeucauchamsoc";
+                huongDanTrongColumn = "huongdantrong";
+                sauBenhVaDieuTriColumn ="saubenhvadieutri";
+                break;
+        }
+        Cursor c = database.query("tb_camnang", new String[]{"id", tenBenhColumn, yeuCauChamSocColumn, huongDanTrongColumn,sauBenhVaDieuTriColumn}, "id=?", new String[]{id}, null, null, null);
         if (c.moveToFirst()) {
             tvTen.setText(c.getString(1));
             tvYeuCauChamSoc1.setText(formatTextWithNewline(c.getString(2)));

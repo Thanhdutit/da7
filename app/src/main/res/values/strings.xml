@@ -117,6 +117,10 @@
     <string name="handBook_text_en">Handbook of Plant Care</string>
     <string name="handBook_text_jp">植物ケアハンドブック</string>
 
+    <string name="handBook_text0_vn">Không tìm thấy</string>
+    <string name="handBook_text0_en">Not found</string>
+    <string name="handBook_text0_jp">見つかりません</string>
+
     <string name="handBook_text1_vn">Yêu cầu chăm sóc</string>
     <string name="handBook_text1_en">Care Requirements</string>
     <string name="handBook_text1_jp">ケア要件</string>
@@ -133,13 +137,27 @@
     <string name="handBook_text4_en">Search for plants</string>
     <string name="handBook_text4_jp">植物を検索</string>
 
+
+
     <string name="history_text_vn">Lịch sử đã chuẩn đoán</string>
     <string name="history_text_en">Diagnosis History</string>
     <string name="history_text_jp">診断履歴</string>
 
+    <string name="delete_text_vn">Xác nhận xóa</string>
+    <string name="delete_text_en">Confirm deletion</string>
+    <string name="delete_text_jp">削除の確認</string>
 
+    <string name="delete_text1_vn">Bạn có chắc chắn muốn xóa dữ liệu không?</string>
+    <string name="delete_text1_en">Are you sure you want to delete data?</string>
+    <string name="delete_text1_jp">データを削除してもよろしいですか?</string>
 
+    <string name="delete_text2_vn">Có</string>
+    <string name="delete_text2_en">Yes</string>
+    <string name="delete_text2_jp">はい</string>
 
+    <string name="delete_text3_vn">Không</string>
+    <string name="delete_text3_en">No</string>
+    <string name="delete_text3_jp">いいえ</string>
 
 
 </resources>

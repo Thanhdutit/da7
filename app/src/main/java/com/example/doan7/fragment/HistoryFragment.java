@@ -2,6 +2,8 @@
 
 package com.example.doan7.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -30,60 +32,6 @@ import com.example.doan7.adapter.HistoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-//
-//public class HistoryFragment extends Fragment {
-//
-//    private RecyclerView recyclerView;
-//    private SQLiteDatabase database;
-//    private String data, data1, data2;
-//    private String DATABASE_NAME = "goiy.db";
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_history, container, false);
-//
-//        List<History> historyList = new ArrayList<>();
-//        historyList.add(new History("1", "Cà chua", R.drawable.cachua));
-//        historyList.add(new History("2", "Đậu nành", R.drawable.daunanh));
-//        historyList.add(new History("3", "Dưa hấu", R.drawable.delete));
-//        historyList.add(new History("4", "Táo", R.drawable.tao));
-//        historyList.add(new History("5", "Ớt chuông", R.drawable.otchuong));
-//
-//        recyclerView = view.findViewById(R.id.recyclerViewHistory);
-//
-//        HistoryAdapter historyAdapter = new HistoryAdapter(historyList, item -> {
-//            String id = item.getId(); // Lấy id từ item
-//            fetchHistoryDetails(id); // Lấy chi tiết lịch sử dựa trên id
-//            Intent intent = new Intent(requireContext(), Suggestion.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putString("tenbenh", data);
-//            bundle.putString("trieuchung", data1);
-//            bundle.putString("dieutri", data2);
-//            intent.putExtra("mypackage", bundle);
-//            startActivity(intent);
-//        });
-//
-//        recyclerView.setAdapter(historyAdapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
-//        return view;
-//    }
-//
-//    // Hàm để lấy chi tiết lịch sử từ database dựa trên ID
-//    private void fetchHistoryDetails(String id) {
-//        database = requireContext().openOrCreateDatabase(DATABASE_NAME, android.content.Context.MODE_PRIVATE, null);
-//        Cursor cursor = database.query("tbgoiy", null, "id=?", new String[]{id}, null, null, null);
-//        if (cursor.moveToFirst()) {
-//            data = cursor.getString(1); // Cột thứ 2 trong bảng
-//            data1 = cursor.getString(2); // Cột thứ 3 trong bảng
-//            data2 = cursor.getString(3); // Cột thứ 4 trong bảng
-//            Log.d("HistoryFragment", "Data: " + data + ", Data1: " + data1 + ", Data2: " + data2);
-//        } else {
-//            Log.e("HistoryFragment", "No data found for id: " + id);
-//        }
-//        cursor.close();
-//    }
-//}
 public class HistoryFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -110,8 +58,58 @@ public class HistoryFragment extends Fragment {
         imgBtDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Gọi phương thức xóa dữ liệu trong SharedPreferences khi button được click
-                deleteDataFromSharedPreferences();
+                // Kiểm tra dữ liệu trong SharedPreferences
+                sharedPreferences = requireActivity().getSharedPreferences("history_prefs", getContext().MODE_PRIVATE);
+                int historyCount = sharedPreferences.getInt("history_count", 0);
+
+                if (historyCount == 0) {
+                    // Không có dữ liệu để xóa, hiển thị thông báo cho người dùng
+                    Toast.makeText(requireContext(), "Không có dữ liệu để xóa", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Có dữ liệu, hiển thị AlertDialog để xác nhận xóa
+                    AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                    switch (selectedLanguage) {
+                        case "English":
+                            builder.setTitle(R.string.delete_text_en);
+                            builder.setMessage(R.string.delete_text1_en);
+                            break;
+                        case "Vietnamese":
+                            builder.setTitle(R.string.delete_text_vn);
+                            builder.setMessage(R.string.delete_text1_vn);
+                            break;
+                        case "Japanese":
+                            builder.setTitle(R.string.delete_text_jp);
+                            builder.setMessage(R.string.delete_text1_jp);
+                            break;
+                        default:
+                            builder.setTitle(R.string.delete_text_vn);
+                            builder.setMessage(R.string.delete_text1_vn);
+                            break;
+                    }
+
+
+                    // Thiết lập nút Yes
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Gọi phương thức xóa dữ liệu trong SharedPreferences
+                            deleteDataFromSharedPreferences();
+                        }
+                    });
+
+                    // Thiết lập nút No
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Đóng hộp thoại nếu người dùng không muốn xóa
+                            dialog.dismiss();
+                        }
+                    });
+
+                    // Hiển thị AlertDialog
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
         return view;
@@ -161,6 +159,7 @@ public class HistoryFragment extends Fragment {
     }
 
     private void updateHistoryList() {
+
         List<History> historyList = new ArrayList<>();
 
         // Đọc dữ liệu từ SharedPreferences
@@ -171,12 +170,12 @@ public class HistoryFragment extends Fragment {
             String id = sharedPreferences.getString("id_" + i, "");
             String tenbenh = sharedPreferences.getString("tenbenh_" + i, "");
             int imageResource = sharedPreferences.getInt("image_resource_" + i, R.drawable.cachua); // Thay R.drawable.default_image bằng hình ảnh mặc định
-            String lop = sharedPreferences.getString("lop", "");
+            String lop = sharedPreferences.getString("lop_" + i, "");
             historyList.add(new History(id, tenbenh, imageResource, lop));
         }
 
         // Cập nhật RecyclerView với danh sách lịch sử mới
-        HistoryAdapter historyAdapter = new HistoryAdapter(historyList, item -> {
+        HistoryAdapter historyAdapter = new HistoryAdapter(getContext(),historyList, item -> {
             String id = item.getLop();
             fetchHistoryDetails(id);
             Intent intent = new Intent(requireContext(), Suggestion.class);
@@ -196,8 +195,31 @@ public class HistoryFragment extends Fragment {
 
     // Hàm để lấy chi tiết lịch sử từ database dựa trên ID
     private void fetchHistoryDetails(String id) {
+
+        String tenBenhColumn;
+        String trieuChungColumn;
+        String cachDieuTriColumn;
+
+        switch (selectedLanguage) {
+            case "English":
+                tenBenhColumn = "tenbenh_en";
+                trieuChungColumn = "trieuchung_en";
+                cachDieuTriColumn = "chuatri_en";
+                break;
+            case "Japanese":
+                tenBenhColumn = "tenbenhjp";
+                trieuChungColumn = "trieuchung_jp";
+                cachDieuTriColumn = "chuatri_jp";
+                break;
+            case "Vietnamese":
+            default:
+                tenBenhColumn = "tenbenh";
+                trieuChungColumn = "trieuchung";
+                cachDieuTriColumn = "chuatri";
+                break;
+        }
         database = requireContext().openOrCreateDatabase(DATABASE_NAME, android.content.Context.MODE_PRIVATE, null);
-        Cursor cursor = database.query("tbgoiy", null, "id=?", new String[]{id}, null, null, null);
+        Cursor cursor = database.query("tbgoiy", new String[]{"id", tenBenhColumn, trieuChungColumn, cachDieuTriColumn}, "id=?", new String[]{id}, null, null, null);
         if (cursor.moveToFirst()) {
             data3 = cursor.getString(0);
             data = cursor.getString(1); // Cột thứ 2 trong bảng

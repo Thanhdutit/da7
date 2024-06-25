@@ -387,62 +387,7 @@ public class HomeFragment extends Fragment {
         return maxIndex;
     }
 
-//    private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
-//        String[] selectionArgs = {String.valueOf(maxIndex)};
-//        Cursor c = database.query("tbgoiy", null, "id=?", selectionArgs, null, null, null);
-//        if (c.moveToFirst()) {
-//            tvBenhChanDoan.setText(c.getString(1));
-//            data = c.getString(1);
-//            data1 = c.getString(2);
-//            data2 = c.getString(3);
-//
-//            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("history_prefs", MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putString("tenbenh", data);
-//            editor.putString("trieuchung", data1);
-//            editor.putString("dieutri", data2);
-//            editor.apply();
-//        }
-//
-//        c.close();
-//        suggestion.setVisibility(View.VISIBLE);
-//    }
-//private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
-//    String[] selectionArgs = {String.valueOf(maxIndex)};
-//    Cursor c = database.query("tbgoiy", null, "id=?", selectionArgs, null, null, null);
-//
-//    if (c.moveToFirst()) {
-//        data = c.getString(1);  // Tên bệnh
-//        data1 = c.getString(2); // Triệu chứng
-//        data2 = c.getString(3); // Cách điều trị
-//        data3 =c.getString(0);
-//        // Lưu dữ liệu vào SharedPreferences
-//        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("history_prefs", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        // Tạo một ID duy nhất cho lần nhận diện hiện tại
-//        int historyCount = sharedPreferences.getInt("history_count", 0);
-//        String id = "" + historyCount;
-//
-//        // Lưu thông tin của lần nhận diện vào SharedPreferences
-//        editor.putString("id_" + historyCount, id);
-//        editor.putString("tenbenh_" + historyCount, data);
-//        editor.putString("trieuchung_" + historyCount, data1);
-//        editor.putString("dieutri_" + historyCount, data2);
-//        editor.putInt("image_resource_" + historyCount, R.drawable.cachua);  // Thay R.drawable.cachua bằng ID hình ảnh tương ứng
-//        editor.putString("lop",data3);
-//
-//
-//        // Tăng số lần nhận diện lên 1
-//        editor.putInt("history_count", historyCount + 1);
-//        editor.apply();
-//
-//        tvBenhChanDoan.setText(data);
-//    }
-//
-//    c.close();
-//    suggestion.setVisibility(View.VISIBLE);
-//}
+
 private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
     // Lấy ngôn ngữ đã chọn từ SharedPreferences hoặc biến toàn cục
 
@@ -492,8 +437,33 @@ private void updateUIWithPrediction(int maxIndex, float maxPrediction) {
         editor.putString("tenbenh_" + historyCount, data);
         editor.putString("trieuchung_" + historyCount, data1);
         editor.putString("dieutri_" + historyCount, data2);
-        editor.putInt("image_resource_" + historyCount, R.drawable.cachua); // Cập nhật hình ảnh đúng
-        editor.putString("lop", data3);
+        if (Integer.valueOf(data3)>= 0 && Integer.valueOf(data3) <= 3) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.ngo); // Cập nhật hình ảnh đúng
+        } else if (Integer.valueOf(data3)==4) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.bi);
+        } else if (Integer.valueOf(data3) >=5 && Integer.valueOf(data3) <=14) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.cachua);
+        } else if (Integer.valueOf(data3) >=15 && Integer.valueOf(data3) <=18) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.daunanh);
+        } else if (Integer.valueOf(data3) >=19 && Integer.valueOf(data3) <=20) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.dautay);
+        } else if (Integer.valueOf(data3) >=21 && Integer.valueOf(data3) <=22) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.dualeo);
+        } else if (Integer.valueOf(data3) >=23 && Integer.valueOf(data3) <=25) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.khoaitay);
+        } else if (Integer.valueOf(data3) >=26 && Integer.valueOf(data3) <=29) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.lua);
+        } else if (Integer.valueOf(data3) >=30 && Integer.valueOf(data3) <=33) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.nho);
+        } else if (Integer.valueOf(data3) >=34 && Integer.valueOf(data3) <=35) {
+            editor.putInt("image_resource_" + historyCount, R.drawable.otchuong);
+        } else {
+            // Trường hợp mặc định nếu id không nằm trong các khoảng trên
+            editor.putInt("image_resource_" + historyCount, R.drawable.cachua);
+        }
+
+
+        editor.putString("lop_" + historyCount, data3);
 
         // Tăng số lần nhận diện lên 1
         editor.putInt("history_count", historyCount + 1);

@@ -15,7 +15,9 @@ import android.widget.TextView;
 public class Suggestion extends AppCompatActivity {
 
     Button btnBack;
-    TextView tvTrieuChung, tvDieuTri, tvTenBenh;
+    TextView tvTrieuChung, tvDieuTri, tvTenBenh, tvTitleTrieuChung, tvTitleCachChuaTri;
+
+    String selectedLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,10 @@ public class Suggestion extends AppCompatActivity {
         tvTrieuChung = findViewById(R.id.tvtrieuchung);
         tvDieuTri = findViewById(R.id.tvdieutri);
         tvTenBenh = findViewById(R.id.tvTenBenh);
-
+        selectedLanguage = MyApplication.getSelectedLanguage();
+        tvTitleCachChuaTri = findViewById(R.id.tvTitleCachChuaTri);
+        tvTitleTrieuChung = findViewById(R.id.tvTitleTrieuChung);
+        updateView();
 
         Intent myIntent = getIntent();
         Bundle myBundel = myIntent.getBundleExtra("mypackage");
@@ -50,7 +55,9 @@ public class Suggestion extends AppCompatActivity {
     private SpannableString formatTextWithNewline(String text) {
         // Bỏ khoảng trắng đầu và cuối chuỗi nếu có
 
-        text = text.trim();
+        if (text != null) {
+             text.trim(); // Kiểm tra null trước khi gọi trim()
+        }
 
         // Thêm dấu '-' vào đầu đoạn văn bản
         text = "-" + text;
@@ -63,5 +70,30 @@ public class Suggestion extends AppCompatActivity {
         }
 
         return new SpannableString(text);
+    }
+
+    private void updateView( ) {
+        switch (selectedLanguage) {
+            case "English":
+                tvTitleTrieuChung.setText(getString(R.string.suggestion_Symptoms_en));
+                tvTitleCachChuaTri.setText(getString(R.string.suggestion_Treatment_en));
+                btnBack.setText(getString(R.string.suggestion_Back_en));
+                break;
+            case "Vietnamese":
+                tvTrieuChung.setText(getString(R.string.suggestion_Symptoms_vn));
+                tvTitleCachChuaTri.setText(getString(R.string.suggestion_Treatment_vn));
+                btnBack.setText(getString(R.string.suggestion_Back_vn));
+                break;
+            case "Japanese":
+                tvTitleTrieuChung.setText(getString(R.string.suggestion_Symptoms_jp));
+                tvTitleCachChuaTri.setText(getString(R.string.suggestion_Treatment_jp));
+                btnBack.setText(getString(R.string.suggestion_Back_jp));
+                break;
+            default:
+                tvTitleTrieuChung.setText(getString(R.string.suggestion_Symptoms_vn));
+                tvTitleCachChuaTri.setText(getString(R.string.suggestion_Treatment_vn));
+                btnBack.setText(getString(R.string.suggestion_Back_vn));
+                break;
+        }
     }
 }

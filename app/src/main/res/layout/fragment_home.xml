@@ -319,6 +319,17 @@
                     android:contentDescription="introduce7"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/tao" />
+
+                <ImageButton
+                    android:id="@+id/imageButton18"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="introduce7"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/bi" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -359,6 +370,7 @@
             android:contentDescription="search_history"
             android:padding="10dp"
             android:scaleType="fitCenter"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"

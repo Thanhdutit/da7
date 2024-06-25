@@ -149,6 +149,18 @@
                 android:contentDescription="introduce7"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/tao" />
+
+            <ImageButton
+
+                android:id="@+id/imgBtBi"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_background"
+                android:contentDescription="introduce4"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/bi" />
         </LinearLayout>
     </HorizontalScrollView>
 
